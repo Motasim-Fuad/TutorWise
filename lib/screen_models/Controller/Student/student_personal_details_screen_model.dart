@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../models/Student/student_personal_details_profile_model.dart';
 import '../../../repository/Student_DashBoard/st_personal_details_repository.dart';
+import '../../../utils/utils.dart';
 import '../user_preference.dart';
 
 class StudentPersonalDetailsScreenModel extends GetxController {
@@ -18,7 +19,7 @@ class StudentPersonalDetailsScreenModel extends GetxController {
   var selectedDistrict = Rxn<StudentLocationModel>();
   var selectedUpazila = Rxn<StudentLocationModel>();
 
-  var gender = 'Male'.obs;
+  var gender = ''.obs;
   var nidImage = Rxn<File>();
   var profileImage = Rxn<File>();
 
@@ -81,20 +82,41 @@ class StudentPersonalDetailsScreenModel extends GetxController {
     }
   }
 
-  void submitDetails(Map<String, dynamic> formData) {
+  void submitDetails(Map<String, dynamic> formData) async {
+    isLoading.value = true;
     formData['gender'] = gender.value;
-    formData['nidcard_picture'] = nidImageBase64;
-    formData['profile_picture'] = profileImageBase64;
-    _repo.studentPersonalDetailsApi(formData);
+    final fields = formData.map((key, value) => MapEntry(key, value.toString()));
+
+    try {
+      await _repo.addstudentPersonalDetailsApi(
+        data: fields,
+        nidImage: nidImage.value,
+        profileImage: profileImage.value,
+      );
+      Utils.snackBar("Success", "Details submitted successfully");
+    } catch (e) {
+      Utils.snackBar("Error", "Submission failed: ${e.toString()}");
+    } finally {
+      isLoading.value = false;
+    }
   }
 
-  Future<void> updateDetails(String StudentId, Map<String, dynamic> formData) async {
 
+
+
+
+  Future<void> updateDetails(String tokenId, Map<String, dynamic> formData) async {
     formData['gender'] = gender.value;
-    formData['nidcard_picture'] = nidImageBase64;
-    formData['profile_image'] = profileImageBase64;
-    _repo.updateStudentDetails(formData );
+
+    final fields = formData.map((key, value) => MapEntry(key, value.toString()));
+
+    await _repo.updateStudentDetailsMultipart(
+      data: fields,
+      nidImage: nidImage.value,
+      profileImage: profileImage.value,
+    );
   }
+
 
 
 }

@@ -4,6 +4,9 @@ class StudentProfileModel {
   StudentProfileModel({required this.completion});
 
   factory StudentProfileModel.fromJson(Map<String, dynamic> json) {
-    return StudentProfileModel(completion: json['completion'] ?? 0);
+    return StudentProfileModel(
+      completion: json['profile_complete_percentage'] ?? 0,
+    );
   }
 }
+

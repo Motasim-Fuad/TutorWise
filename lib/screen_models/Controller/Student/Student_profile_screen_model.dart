@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
-
 import '../../../repository/Student_DashBoard/st_profile_progressbar_repository.dart';
-
 
 class StudentProfileScreenModel extends GetxController {
   final _repo = StProfileProgressbarRepository();
@@ -13,6 +11,7 @@ class StudentProfileScreenModel extends GetxController {
     isLoading.value = true;
     try {
       final model = await _repo.fetchProfileProgress();
+      print("Progress fetched: ${model.completion}");
       completion.value = model.completion;
     } catch (e) {
       print("Error loading profile progress: $e");

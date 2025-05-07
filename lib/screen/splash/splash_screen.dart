@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../resources/assets/image_assets.dart';
 import '../../screen_models/Controller/Splash/splash_controller.dart';
@@ -27,17 +28,22 @@ class _SplashScreenState extends State<SplashScreen> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color(0xFFFFFFFF), // Purple
-              Color(0xFFDFC1C1), // Blue
+              Color(0xFF000000), // Purple
+              Color(0xFF070707), // Blue
             ],
           ),
         ),
         child: Center(
           child: RotationTransition(
             turns: cpController.rotationController,
-            child: Image.asset(
-              ImageAssets.splashScreen,
-              height: height * 0.4,
+            child: Lottie.asset("assets/images/AnimationSplash.json",
+              width: 500,
+              height: 500,
+              fit: BoxFit.contain,
+              repeat: true,
+              reverse: false,
+              animate: true,
+
             ),
           ),
         ),

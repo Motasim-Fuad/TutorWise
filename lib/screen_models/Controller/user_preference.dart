@@ -14,15 +14,11 @@ class UserPreferences {
       await sp.setString(_keyToken, user.token);
       await sp.setString(_keyUserType, user.userType);
       await sp.setBool(_keyIsLogin, user.isLogin);
-      if (user.studentId != null) {
-        await sp.setInt(_keyStudentId, user.studentId!);
-      }
-      if (kDebugMode) {
-        print("Saved studentId: ${user.studentId}");
-      }
+
+
 
       if (kDebugMode) {
-        print("Saving user -> token: ${user.token}, userType: ${user.userType}, studentId: ${user.studentId}");
+        print("Saving user -> token: ${user.token}, userType: ${user.userType},");
       }
 
       return true;
@@ -52,7 +48,6 @@ class UserPreferences {
       token: token,
       userType: userType,
       isLogin: isLogin,
-      studentId: studentId,
     );
 
 

@@ -40,6 +40,7 @@ dependencies:
   fluttertoast: ^8.2.12
   flutter_dotenv: ^5.1.0
   image_picker: ^1.1.2
+  lottie: ^3.1.0
 
 
 dev_dependencies:

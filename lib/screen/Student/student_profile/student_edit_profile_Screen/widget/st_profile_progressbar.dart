@@ -1,20 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tutorapp/screen_models/Controller/Student/Student_profile_screen_model.dart';
+import '../../../../../screen_models/Controller/Student/Student_profile_screen_model.dart';
 
 
-class StudentProfileProgressWidget extends StatelessWidget {
-  final StudentProfileScreenModel viewModel = Get.put(StudentProfileScreenModel());
+class StudentProfileProgressWidget extends StatefulWidget {
+  @override
+  State<StudentProfileProgressWidget> createState() => _StudentProfileProgressWidgetState();
+}
+
+class _StudentProfileProgressWidgetState extends State<StudentProfileProgressWidget> {
+  final StudentProfileScreenModel controller = Get.put(StudentProfileScreenModel());
+
+  @override
+  void initState() {
+    super.initState();
+    final shouldRefresh = Get.arguments == true;
+    if (shouldRefresh) {
+      controller.fetchProfileProgress();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (viewModel.isLoading.value) {
+      if (controller.isLoading.value) {
         return const Padding(
           padding: EdgeInsets.all(20),
-          child: LinearProgressIndicator(),
+          child: Center(child: CircularProgressIndicator()),
         );
       }
+
+
 
       return Container(
         margin: const EdgeInsets.all(16),
@@ -24,9 +40,10 @@ class StudentProfileProgressWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Profile ${viewModel.completion.value}% complete',
+              'Profile ${controller.completion.value}% complete',
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -34,13 +51,23 @@ class StudentProfileProgressWidget extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             LinearProgressIndicator(
-              value: viewModel.completion.value / 100,
+              minHeight: 20.0,
+              value: controller.completion.value / 100.0,
               backgroundColor: Colors.white24,
-              valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+              valueColor: AlwaysStoppedAnimation<Color>(
+                getProgressColor(controller.completion.value),
+              ),
             ),
           ],
         ),
       );
     });
+  }
+
+  Color getProgressColor(int value) {
+    if (value >= 80) return Colors.green;
+    if (value >= 50) return Colors.orange;
+    if(value ==0)return Colors.white;
+    return Colors.red;
   }
 }

@@ -2,6 +2,9 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tutorapp/resources/components/round_button.dart';
+import 'package:tutorapp/resources/routes/route_name.dart';
+import 'package:tutorapp/screen_models/Controller/Student/Student_profile_screen_model.dart';
 import 'package:tutorapp/utils/utils.dart';
 import '../../../../screen_models/Controller/Student/student_personal_details_screen_model.dart';
 import '../../../../models/Student/student_personal_details_profile_model.dart';
@@ -9,6 +12,7 @@ import '../../../../screen_models/Controller/user_preference.dart';
 
 class StudentPersonalDetailsScreen extends StatelessWidget {
   final controller = Get.put(StudentPersonalDetailsScreenModel());
+  final progresController=Get.put(StudentProfileScreenModel());
 
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
@@ -73,8 +77,41 @@ class StudentPersonalDetailsScreen extends StatelessWidget {
             Text("Other"),
           ])),
           SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
+          RoundButton (
+            width: double.infinity,
+            title: 'Submit',
+            onPress: () async {
+              final data = {
+              'full_name': nameController.text,
+              'phone': phoneController.text,
+              'division_id': controller.selectedDivision.value?.id,
+              'district_id': controller.selectedDistrict.value?.id,
+              'upazila_id': controller.selectedUpazila.value?.id,
+              'address': addressController.text,
+              'nidcard_number': nidController.text,
+            };
+             controller.submitDetails(data);
+
+              progresController.fetchProfileProgress();
+            if (kDebugMode) {
+              print("submmit succes");
+            }
+            Utils.snackBar("Submit", "Data Submit  Success");
+              Get.offNamed(RouteName.studentEditProfileScreen, arguments: true);
+
+
+            },
+
+          ),
+          SizedBox(height: 20,),
+          RoundButton(
+            buttonColor: Colors.grey,
+            width: double.infinity,
+            onPress: () async {
+              final user = await UserPreferences().getUser();
+
+              final tokenID=user.token;
+
               final data = {
                 'full_name': nameController.text,
                 'phone': phoneController.text,
@@ -84,42 +121,25 @@ class StudentPersonalDetailsScreen extends StatelessWidget {
                 'address': addressController.text,
                 'nidcard_number': nidController.text,
               };
-              controller.submitDetails(data);
-
-              if (kDebugMode) {
-                print("submmit succes");
-              }
-              Utils.snackBar("Submit", "Data Submit  Success");
-            },
-            child: Text("Submit"),
-          ),
-          SizedBox(height: 20,),
-          ElevatedButton(
-            onPressed: () async {
-              final user = await UserPreferences().getUser();
-              final studentId = user.studentId;
-
-              final data = {
-                'full_name': nameController.text,
-                'phone': phoneController.text,
-                'division_id': controller.selectedDivision.value?.id,
-                'district_id': controller.selectedDistrict.value?.id,
-                'upazila_id': controller.selectedUpazila.value?.id,
-                'address': addressController.text,
-                'nid_number': nidController.text,
-              };
-              if (studentId == null) {
-                Utils.snackBar("Error", "Student ID not found");
+              if (tokenID == null) {
+                Utils.snackBar("Error", "Token not found");
                 return;
               }
+              if (kDebugMode) {
+                print("user token:$tokenID");
+              }
 
-              controller.updateDetails(studentId.toString(), data);
-
+              controller.updateDetails(tokenID.toString(), data);
+              progresController.fetchProfileProgress();
               if (kDebugMode) {
                 print("Update SuccessFull");
               }
+              Utils.snackBar("Update", "Data Updated Success");
+              Get.offNamed(RouteName.studentEditProfileScreen, arguments: true);
+
+
             },
-            child: Text("Update"),
+            title: "Data Update",
           )
 
         ]),

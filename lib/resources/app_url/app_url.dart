@@ -1,5 +1,6 @@
 class AppUrl{
-  static const String baseurl='https://backend.tutorwise.com.bd';
+  //static const String baseurl='https://backend.tutorwise.com.bd';
+  static const String baseurl='http://192.168.0.240:8000';
   static const String loginApi='$baseurl/api/account/login/';
   static const String singUpApi='$baseurl/api/account/signup/';
   static const String otp_verifyApi='$baseurl/api/account/verify-otp/';

@@ -47,11 +47,9 @@ class LoginScreenModel extends GetxController{
       if (statusCode == 200) {
         final token = data["token"];
         final userType = data["user_type"];
-        final studentId = data.containsKey("student_id") ? data["student_id"] : null;
 
-        if (kDebugMode) {
-          print("StudentId from Api: $studentId");
-        }
+
+
 
         if (token == null || userType == null) {
           Utils.snackBar("Login Failed", data['message'] ?? "Invalid response");
@@ -62,11 +60,11 @@ class LoginScreenModel extends GetxController{
           token: token,
           userType: userType,
           isLogin: true,
-          studentId: studentId,
+
         );
 
         if (kDebugMode) {
-          print("Saving user -> token: $token, userType: $userType, studentId: $studentId");
+          print("Saving user -> token: $token, userType: $userType,");
         }
 
         userPreferences.saveUser(userModel).then((_) {

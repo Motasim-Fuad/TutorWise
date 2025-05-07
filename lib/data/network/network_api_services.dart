@@ -18,18 +18,23 @@ class NetworkApiServices extends BaseApiServices{
 
 
   @override
-  Future<dynamic>getApi(String url) async {
-
-    if(kDebugMode){
-      print(url);
+  Future<dynamic> getApi(String url) async {
+    if (kDebugMode) {
+      print('GET URL: $url');
     }
+
+    final token = await _getToken();
+
     dynamic returnResponse(http.Response response) {
       final responseJson = jsonDecode(response.body);
 
       switch (response.statusCode) {
         case 200:
         case 400:
-          return responseJson;
+         return {
+            'statusCode': response.statusCode,
+            'data': responseJson,
+          };
         default:
           throw FetchUrlException(
             "Error Occurred while Communicated Server. StatusCode: ${response.statusCode}",
@@ -37,34 +42,53 @@ class NetworkApiServices extends BaseApiServices{
       }
     }
 
-
     dynamic responseJson;
-      try{
-        final response= await http.get(Uri.parse(url)).timeout(Duration(seconds: 10));
-
-        responseJson= returnResponse(response);
-      }on SocketException{
-        throw InternetException("");
-      }on TimeoutException{
-        throw RequestTimeOut("");
-      }
-
-
-      return responseJson;
-  }
-
-  Future<dynamic> putApi(dynamic data, String url) async {
-    final token = await _getToken();
-
-    final headers = {
-      'Content-Type': 'application/json',
-      if (token != null) 'Authorization': 'Token $token',
-    };
-
-    final body = jsonEncode(data);
 
     try {
-      final response = await http.put(Uri.parse(url), body: body, headers: headers);
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Authorization': 'Token $token',
+          'Content-Type': 'application/json',
+        },
+      ).timeout(const Duration(seconds: 10));
+
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw InternetException("");
+    } on TimeoutException {
+      throw RequestTimeOut("");
+    }
+
+    return responseJson;
+  }
+
+
+  Future<dynamic> putMultipartApi({
+    required String url,
+    required Map<String, String> fields,
+    File? nidImage,
+    File? profileImage,
+  }) async {
+    final token = await _getToken();
+
+    final request = http.MultipartRequest('PUT', Uri.parse(url))
+      ..headers.addAll({
+        'Authorization': 'Token $token',
+      })
+      ..fields.addAll(fields);
+
+    if (nidImage != null) {
+      request.files.add(await http.MultipartFile.fromPath('nidcard_picture', nidImage.path));
+    }
+
+    if (profileImage != null) {
+      request.files.add(await http.MultipartFile.fromPath('profile_picture', profileImage.path));
+    }
+
+    try {
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         return jsonDecode(response.body);
@@ -72,9 +96,45 @@ class NetworkApiServices extends BaseApiServices{
         throw Exception('PUT API Error: ${response.statusCode} ${response.body}');
       }
     } catch (e) {
-      throw Exception('PUT API Exception: $e');
+      throw Exception('PUT Multipart API Exception: $e');
     }
   }
+
+
+  Future<dynamic> postApimulti({
+    required String url,
+    required Map<String, String> fields,
+    Map<String, File>? files,
+  }) async {
+    final token = await _getToken();
+
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.headers['Authorization'] = 'Token $token';
+
+      // Add fields
+      request.fields.addAll(fields);
+
+      // Add files
+      if (files != null) {
+        for (var entry in files.entries) {
+          request.files.add(await http.MultipartFile.fromPath(entry.key, entry.value.path));
+        }
+      }
+
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception('POST Multipart API Error: ${response.statusCode} ${response.body}');
+      }
+    } catch (e) {
+      throw Exception('POST API Exception: $e');
+    }
+  }
+
 
   @override
   @override

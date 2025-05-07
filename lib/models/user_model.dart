@@ -2,13 +2,13 @@ class UserModel {
   final String token;
   final String userType;
   final bool isLogin;
-  final int? studentId;
+
 
   UserModel({
     required this.token,
     required this.userType,
     required this.isLogin,
-    required this.studentId,
+
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -16,7 +16,7 @@ class UserModel {
       token: json['token'],
       userType: json['userType'],
       isLogin: json['isLogin'],
-      studentId: json['studentId'],
+
     );
   }
 
@@ -24,6 +24,6 @@ class UserModel {
     'token': token,
     'userType': userType,
     'isLogin': isLogin,
-    'studentId': studentId,
+
   };
 }
