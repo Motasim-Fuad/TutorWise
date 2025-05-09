@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tutorapp/resources/routes/route_name.dart';
 import 'package:tutorapp/screen/Student/student_profile/student_edit_profile_Screen/widget/st_profile_progressbar.dart';
-import 'package:tutorapp/screen_models/Controller/Student/Student_profile_screen_model.dart';
+import 'package:tutorapp/screen_models/Controller/Student/Student_profile_progresbar_screen_model.dart';
 
 class StudentEditProfileScreen extends StatefulWidget {
   const StudentEditProfileScreen({super.key});
@@ -12,7 +12,7 @@ class StudentEditProfileScreen extends StatefulWidget {
 }
 
 class _StudentEditProfileScreenState extends State<StudentEditProfileScreen> {
-  final controller = Get.put(StudentProfileScreenModel());
+  final controller = Get.put(StudentProfileProgressBarScreenModel());
   @override
   void initState() {
     // TODO: implement initState

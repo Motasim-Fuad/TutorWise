@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutorapp/utils/utils.dart';
+import '../../../resources/app_url/app_url.dart';
 import '../../../resources/routes/route_name.dart';
+import '../../../screen_models/Controller/Student/StudentProfileScreenModel.dart';
 import '../../../screen_models/Controller/user_preference.dart';
 
 
 class CustomDrawer extends StatelessWidget {
-   CustomDrawer({super.key});
-  UserPreferences userPreferences=UserPreferences();
+  CustomDrawer({super.key});
+  final _controller = Get.put(StudentProfileScreenModel());
+  UserPreferences userPreferences = UserPreferences();
+
   @override
   Widget build(BuildContext context) {
+    final data = _controller.profile.value;
+
     return Drawer(
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(16),
           bottomRight: Radius.circular(16),
@@ -21,18 +28,23 @@ class CustomDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: const BoxDecoration(color: Colors.deepPurple),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundImage: AssetImage("assets/icons/tutorwiseAppIcon.jpg"),
-                ),
-                SizedBox(height: 10),
-                Text('John Doe', style: TextStyle(color: Colors.white, fontSize: 18)),
-                Text('john.doe@email.com', style: TextStyle(color: Colors.white70)),
-              ],
+            decoration: BoxDecoration(color: Colors.deepPurple),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundImage: NetworkImage(
+                      "${AppUrl.baseurl}${data.profilePicture}",
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(data.fullName.toString(),
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  Text(data.studentPhone.toString(),style: TextStyle(color: Colors.grey, )),
+                ],
+              ),
             ),
           ),
           ListTile(
@@ -51,10 +63,8 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
               Get.toNamed(RouteName.studentEditProfileScreen);
-
             },
           ),
-
           ListTile(
             leading: const Icon(Icons.list_alt_outlined),
             title: const Text('My Offer'),
@@ -62,7 +72,6 @@ class CustomDrawer extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
-
           ListTile(
             leading: const Icon(Icons.add_circle_outline_rounded),
             title: const Text('Post Tutor'),
@@ -70,9 +79,8 @@ class CustomDrawer extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
-          SizedBox(height: 10,),
-
-          SizedBox(height: 20,),
+          SizedBox(height: 10),
+          SizedBox(height: 20),
           ListTile(
             leading: const Icon(Icons.settings_outlined),
             title: const Text('Change Password '),
@@ -83,36 +91,36 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('Log Out'),
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    title: Text('Confirm Logout'),
-                    content: Text('Are you sure you want to log out?'),
-                    actions: [
-                      TextButton(
-                        child: Text('Cancel'),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                      TextButton(
-                        child: Text('Logout'),
-                        onPressed: () {
-                          Navigator.pop(context); // Close dialog
-                          userPreferences.removeUser().then((value) {
-                            Get.offAllNamed(RouteName.loginScreen);
-                          }).onError((error, stackTrace) {
-                            Utils.snackBar("Log Out", "Some Error: $error");
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              }
-
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: Text('Confirm Logout'),
+                  content: Text('Are you sure you want to log out?'),
+                  actions: [
+                    TextButton(
+                      child: Text('Cancel'),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                    TextButton(
+                      child: Text('Logout'),
+                      onPressed: () {
+                        Navigator.pop(context); // Close dialog
+                        userPreferences.removeUser().then((value) {
+                          Get.offAllNamed(RouteName.loginScreen);
+                        }).onError((error, stackTrace) {
+                          Utils.snackBar("Log Out", "Some Error: $error");
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
         ],
       ),
     );
   }
 }
+

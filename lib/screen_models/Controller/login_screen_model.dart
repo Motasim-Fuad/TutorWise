@@ -47,6 +47,7 @@ class LoginScreenModel extends GetxController{
       if (statusCode == 200) {
         final token = data["token"];
         final userType = data["user_type"];
+        final userName = data["username"];
 
 
 
@@ -60,11 +61,12 @@ class LoginScreenModel extends GetxController{
           token: token,
           userType: userType,
           isLogin: true,
+          userName: userName,
 
         );
 
         if (kDebugMode) {
-          print("Saving user -> token: $token, userType: $userType,");
+          print("Saving user -> token: $token, userType: $userType,userName:$userName");
         }
 
         userPreferences.saveUser(userModel).then((_) {

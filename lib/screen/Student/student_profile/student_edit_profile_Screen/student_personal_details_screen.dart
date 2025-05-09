@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tutorapp/resources/components/round_button.dart';
 import 'package:tutorapp/resources/routes/route_name.dart';
-import 'package:tutorapp/screen_models/Controller/Student/Student_profile_screen_model.dart';
+import 'package:tutorapp/screen_models/Controller/Student/Student_profile_progresbar_screen_model.dart';
 import 'package:tutorapp/utils/utils.dart';
 import '../../../../screen_models/Controller/Student/student_personal_details_screen_model.dart';
 import '../../../../models/Student/student_personal_details_profile_model.dart';
@@ -12,7 +12,7 @@ import '../../../../screen_models/Controller/user_preference.dart';
 
 class StudentPersonalDetailsScreen extends StatelessWidget {
   final controller = Get.put(StudentPersonalDetailsScreenModel());
-  final progresController=Get.put(StudentProfileScreenModel());
+  final progresController=Get.put(StudentProfileProgressBarScreenModel());
 
   final nameController = TextEditingController();
   final phoneController = TextEditingController();

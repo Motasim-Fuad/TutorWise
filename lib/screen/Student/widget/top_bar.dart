@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:tutorapp/resources/routes/route_name.dart';
 
 import '../../../resources/assets/image_assets.dart';
 import '../../../screen_models/Controller/localization_controller.dart';
@@ -55,7 +56,10 @@ class TopBar extends StatelessWidget {
                         icon: const Icon(Icons.notifications),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+
+                          Get.toNamed(RouteName.stPostTuitionScreen);
+                        },
                         icon: const Icon(Icons.add_circle_outline_rounded),
                       ),
                       Obx(

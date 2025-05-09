@@ -17,7 +17,7 @@ class StudentScreen extends StatelessWidget {
       StudentHomeScreen(),
       StudentMyTutor(),
     StudentOffers(),
-    StudentProfile()
+    StudentProfileScreen()
   ];
 
   @override

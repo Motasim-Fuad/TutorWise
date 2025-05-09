@@ -12,5 +12,6 @@ class RouteName{
   static const String referrerScreen= "/referrer_screen";
   static const String studentEditProfileScreen= "/student_editProfileScreen";
   static const String studentPersonalDetailsScreen= "/student_personal_details_screen";
+  static const String stPostTuitionScreen= "/st_Post_Tuition_Screen";
 
 }

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import '../../../repository/Student_DashBoard/st_profile_progressbar_repository.dart';
 
-class StudentProfileScreenModel extends GetxController {
+class StudentProfileProgressBarScreenModel extends GetxController {
   final _repo = StProfileProgressbarRepository();
 
   var completion = 0.obs;

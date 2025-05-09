@@ -1,10 +1,10 @@
-class StudentProfileModel {
+class StudentProfileProgressBarModel {
   final int completion;
 
-  StudentProfileModel({required this.completion});
+  StudentProfileProgressBarModel({required this.completion});
 
-  factory StudentProfileModel.fromJson(Map<String, dynamic> json) {
-    return StudentProfileModel(
+  factory StudentProfileProgressBarModel.fromJson(Map<String, dynamic> json) {
+    return StudentProfileProgressBarModel(
       completion: json['profile_complete_percentage'] ?? 0,
     );
   }

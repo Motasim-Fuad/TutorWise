@@ -15,6 +15,7 @@ class SplashServices{
       print("Token: ${value.token}");
       print("Is Logged In: ${value.isLogin}");
       print("User Type: ${value.userType}");
+      print("User Name: ${value.userName}");
 
 
       if (value.isLogin == false || value.token.isEmpty) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../../screen_models/Controller/Student/Student_profile_screen_model.dart';
+import '../../../../../screen_models/Controller/Student/Student_profile_progresbar_screen_model.dart';
 
 
 class StudentProfileProgressWidget extends StatefulWidget {
@@ -9,7 +9,7 @@ class StudentProfileProgressWidget extends StatefulWidget {
 }
 
 class _StudentProfileProgressWidgetState extends State<StudentProfileProgressWidget> {
-  final StudentProfileScreenModel controller = Get.put(StudentProfileScreenModel());
+  final StudentProfileProgressBarScreenModel controller = Get.put(StudentProfileProgressBarScreenModel());
 
   @override
   void initState() {

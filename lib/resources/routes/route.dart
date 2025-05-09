@@ -9,6 +9,7 @@ import 'package:tutorapp/screen/referrer/referrer_screen.dart';
 import '../../screen/Authentacation/forget_password/forget_password.dart';
 import '../../screen/Authentacation/login/login_screen.dart';
 import '../../screen/Authentacation/singup/singupScreen.dart';
+import '../../screen/Student/St_PostTutionScreen.dart';
 import '../../screen/Student/student_profile/student_edit_profile_Screen/student_personal_details_screen.dart';
 import '../../screen/splash/splash_screen.dart';
 import 'route_name.dart';
@@ -92,6 +93,13 @@ class AppRoutes {
     GetPage(
       name: RouteName.studentPersonalDetailsScreen,
       page: ()=> StudentPersonalDetailsScreen(),
+      transition: Transition.leftToRightWithFade,
+      transitionDuration: Duration(microseconds: 250),
+    ),
+
+    GetPage(
+      name: RouteName.stPostTuitionScreen,
+      page: ()=> StPostTuitionScreen(),
       transition: Transition.leftToRightWithFade,
       transitionDuration: Duration(microseconds: 250),
     ),
