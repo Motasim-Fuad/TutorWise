@@ -91,42 +91,68 @@ class StudentPostForTutionScreenModel extends GetxController{
     try {
       isLoading.value = true;
 
+      if (selectedDivision.value == null || selectedDistrict.value == null || selectedUpazila.value == null) {
+        Get.snackbar("Validation Error", "Please select Division, District, and Upazila");
+        return;
+      }
+
+
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? token = prefs.getString('token');
 
 
       print("token is :$token");
 
-      // if (token == null) {
-      //   Get.snackbar("Error", "Authentication info not found");
-      //   return;
-      // }
+      if (token == null) {
+        Get.snackbar("Error", "Authentication info not found");
+        return;
+      }
+
+
 
       Map<String, dynamic> data = {
 
         "phone_number": phoneNumber.value,
-        "division": selectedDivision.value?.id,
-        "district": selectedDistrict.value?.id,
-        "upazila": selectedUpazila.value?.id,
-        "address": address.value,
+        "division_id": selectedDivision.value?.id.toString(),
+        "district_id": selectedDistrict.value?.id,
+        "upazila_id": selectedUpazila.value?.id,
+        "additional_comment": address.value,
         "job_title": jobTitle.value,
-        "start_date": startDate.value,
-        "education_level": educationLevel.value,
+        "tuition_start_date": startDate.value,
+        "educational_level_choices": educationLevel.value,
         "curriculum": curriculum.value,
-        "subjects": subjects.value,
+        "subject": subjects.value,
         "lesson_type": lessonType.value,
-        "student_gender": studentGender.value,
+        "gender": studentGender.value,
         "tutor_gender": tutorGender.value,
-        "budget": budget.value,
+        "budget_amount": budget.value,
         "days_per_week": daysPerWeek.value,
         "tutor_curriculum": tutorCurriculum.value,
-        "tutor_institute": tutorInstitute.value,
-        "referrer_id": referrerId.value,
+        "tutor_institution": tutorInstitute.value,
+        //"referrer_id": referrerId.value,
       };
-        print("Tution Post SuccessFull");
-     _repo.postForTutionApi(data);
 
-      Get.snackbar("Success", "Tuition  posted!");
+
+
+      try{
+        final response = await _repo.postForTutionApi(data);
+        print("Tuition post response: $response");
+        print("Response body: ${response['data']}");
+
+        if (response['statusCode'] == 200 || response['statusCode'] == 201) {
+
+
+          Get.snackbar("Success", "Tuition posted!");
+        } else {
+          Get.snackbar("Error", "Failed to post tuition: ${response['data']}");
+        }
+
+      }catch(e){
+        print("post error is=$e");
+      }
+
+
+
     } catch (e) {
       Get.snackbar("Failed", "Something went wrong: $e");
     } finally {

@@ -100,21 +100,17 @@ class NetworkApiServices extends BaseApiServices{
     }
   }
 
-
   Future<dynamic> postApimulti({
     required String url,
     required Map<String, String> fields,
     Map<String, File>? files,
   }) async {
     final token = await _getToken();
-
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.headers['Authorization'] = 'Token $token';
-
       // Add fields
       request.fields.addAll(fields);
-
       // Add files
       if (files != null) {
         for (var entry in files.entries) {

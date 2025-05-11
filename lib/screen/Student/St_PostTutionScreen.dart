@@ -19,7 +19,7 @@ class StPostTuitionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Post your Tuition")),
+      appBar: AppBar(title: Text("Post For Your Tuition")),
       body: Obx(() {
         return controller.isLoading.value
             ? Center(child: CircularProgressIndicator())
@@ -36,18 +36,35 @@ class StPostTuitionScreen extends StatelessWidget {
               _upazilaDropdown(),
               SizedBox(height: 10,),
               _textField("Address", addressController),
-              _dropdownField("Education Level", ["Class 1", "Class 2", "Class 3"]),
-              _dropdownField("Curriculums", ["N/A", "Bangla Medium", "English Medium"]),
+              bindableDropdownField(
+                label: "Education Level",
+                items: ["Class 1", "Class 2", "Class 3", "Class 4", "Class 5", "Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "HSC A Level"],
+                selectedValue: controller.educationLevel,
+              ),
+              bindableDropdownField(
+                label: "Curriculums",
+                items: ["N/A", "Bangla Medium", "English Medium", "Diploma"],
+                selectedValue: controller.curriculum,
+              ),
               _textField("Job Title", jobTitleController),
               _textField("Subjects", subjectsController),
               _radioGroup("Lesson Type", ["Online", "Offline", "Both"], controller.lessonType),
               _radioGroup("Student Gender", ["Male", "Female"], controller.studentGender),
               _radioGroup("Tutor Gender", ["Male", "Female", "Any"], controller.tutorGender),
               _textField("Budget", budgetController, inputType: TextInputType.number),
-              _dropdownField("Days Per Week", ["1", "2", "3", "4", "5", "6", "7"]),
-              _dropdownField("Tutor Curriculum", ["Bangla Medium", "English Medium"]),
+              bindableDropdownField(
+                label: "Days Per Week",
+                items: ["1", "2", "3", "4", "5", "6", "7"],
+                selectedValue: controller.daysPerWeek,
+              ),
+              bindableDropdownField(
+                label: "Tutor Curriculum",
+                items: ["Bangla Medium", "English Medium", "Diploma"],
+                selectedValue: controller.tutorCurriculum,
+              ),
+
               _textField("Tutor Institute", tutorInstituteController),
-              _textField("Referrer ID", referrerIdController),
+             // _textField("Referrer ID", referrerIdController),
               SizedBox(height: 20),
              RoundButton(
                  title: "post",
@@ -58,9 +75,14 @@ class StPostTuitionScreen extends StatelessWidget {
                controller.jobTitle.value = jobTitleController.text;
                controller.budget.value = budgetController.text;
                controller.tutorInstitute.value = tutorInstituteController.text;
-               controller.referrerId.value = referrerIdController.text;
+               //controller.referrerId.value = referrerIdController.text;
                controller.subjects.value = subjectsController.text;
                controller.passTituonPost();
+
+
+
+               //clear data
+               _clearForm();
              })
             ],
           ),
@@ -68,6 +90,40 @@ class StPostTuitionScreen extends StatelessWidget {
       }),
     );
   }
+
+  void _clearForm() {
+    phoneController.clear();
+    addressController.clear();
+    jobTitleController.clear();
+    budgetController.clear();
+    tutorInstituteController.clear();
+    referrerIdController.clear();
+    subjectsController.clear();
+
+    controller.phoneNumber.value = '';
+    controller.address.value = '';
+    controller.jobTitle.value = '';
+    controller.budget.value = '';
+    controller.tutorInstitute.value = '';
+    controller.subjects.value = '';
+    controller.startDate.value = '';
+
+    controller.educationLevel.value = '';
+    controller.curriculum.value = '';
+    controller.lessonType.value = '';
+    controller.studentGender.value = '';
+    controller.tutorGender.value = '';
+    controller.daysPerWeek.value = '';
+    controller.tutorCurriculum.value = '';
+
+    controller.selectedDivision.value = null;
+    controller.selectedDistrict.value = null;
+    controller.selectedUpazila.value = null;
+
+    controller.districts.clear();
+    controller.upazilas.clear();
+  }
+
 
   Widget _textField(String label, TextEditingController controller, {TextInputType inputType = TextInputType.text}) {
     return Padding(
@@ -103,7 +159,6 @@ class StPostTuitionScreen extends StatelessWidget {
       ),
     ));
   }
-
 
   Widget _divisionDropdown() {
     return Obx(() => DropdownButtonFormField<StudentLocationModel>(
@@ -144,16 +199,39 @@ class StPostTuitionScreen extends StatelessWidget {
     ));
   }
 
-  Widget _dropdownField(String label, List<String> items) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 10),
+  // Widget _dropdownField(String label, List<String> items) {
+  //   return Padding(
+  //     padding: EdgeInsets.only(bottom: 10),
+  //     child: DropdownButtonFormField<String>(
+  //       decoration: InputDecoration(labelText: label, border: OutlineInputBorder()),
+  //       items: items.map((item) => DropdownMenuItem(value: item, child: Text(item))).toList(),
+  //       onChanged: (val) {},
+  //     ),
+  //   );
+  // }
+
+  Widget bindableDropdownField({
+    required String label,
+    required List<String> items,
+    required RxString selectedValue,
+  }) {
+    return Obx(() => Padding(
+      padding: const EdgeInsets.only(bottom: 10),
       child: DropdownButtonFormField<String>(
-        decoration: InputDecoration(labelText: label, border: OutlineInputBorder()),
-        items: items.map((item) => DropdownMenuItem(value: item, child: Text(item))).toList(),
-        onChanged: (val) {},
+        decoration: InputDecoration(
+            labelText: label, border: OutlineInputBorder()),
+        value: selectedValue.value.isEmpty ? null : selectedValue.value,
+        items: items
+            .map((item) =>
+            DropdownMenuItem(value: item, child: Text(item)))
+            .toList(),
+        onChanged: (val) {
+          if (val != null) selectedValue.value = val;
+        },
       ),
-    );
+    ));
   }
+
 
   Widget _radioGroup(String label, List<String> options, RxString selectedValue) {
     return Obx(() => Padding(

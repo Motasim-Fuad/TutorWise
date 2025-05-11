@@ -15,6 +15,8 @@ class AppUrl{
   static const String upazilaListApi = "$baseurl/api/account/upazila-list/";
   static const String showStudentPersonalDetailsApi = "$baseurl/api/account/edit-student-personal-detail/";
   static const String stPostForTution = "$baseurl/api/custom-tuition/create/";
+  static const String stTutionPostList = "$baseurl/api/custom-tuition/view/";
+  static const String stShowHireTutorList = "$baseurl/api/account/hire-tutor/520/";
 
 
 
