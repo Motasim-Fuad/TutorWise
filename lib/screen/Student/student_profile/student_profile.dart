@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tutorapp/screen/Student/student_profile/student_edit_profile_Screen/widget/st_profile_progressbar.dart';
 import 'package:tutorapp/screen_models/Controller/Student/StudentProfileScreenModel.dart';
 import '../../../resources/app_url/app_url.dart';
 
@@ -9,10 +10,7 @@ class StudentProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Student Profile"),
-        backgroundColor: Colors.deepPurple,
-      ),
+
       body: Obx(() {
         if (controller.isLoading.value) {
           return Center(child: CircularProgressIndicator());
@@ -25,6 +23,8 @@ class StudentProfileScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+
+
               // Profile Picture
               Center(
                 child: CircleAvatar(

@@ -33,9 +33,9 @@ class MyApp extends StatelessWidget {
           locale: Locale("en","US"),
           fallbackLocale: Locale("en","US"),
 
-          theme: AppTheme.light,
-          darkTheme: AppTheme.dark,
           themeMode: themeController.theme,
+          theme: ThemeData.light(),
+          darkTheme: ThemeData.dark(),
 
           home: SplashScreen(),
           getPages: AppRoutes.appRoutes(),

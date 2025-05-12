@@ -8,6 +8,7 @@ import '../../../screen_models/Controller/Student/StudentProfileScreenModel.dart
 import '../../../screen_models/Controller/user_preference.dart';
 import '../../../screen_models/services/theme_screen_model.dart';
 import '../../../utils/Neumorphic/themeBtn.dart';
+import '../student_profile/student_edit_profile_Screen/widget/st_profile_progressbar.dart';
 
 
 
@@ -32,7 +33,9 @@ class CustomDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(color: Colors.deepPurple),
+            decoration: BoxDecoration(
+
+            ),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,11 +48,16 @@ class CustomDrawer extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Text(data.fullName.toString(),
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                      style: TextStyle( fontSize: 18)),
                   Text(data.studentPhone.toString(),style: TextStyle(color: Colors.grey, )),
+
+
                 ],
               ),
             ),
+          ),
+          ListTile(
+            title:  StudentProfileProgressWidget(),
           ),
           ListTile(
             leading: const Icon(Icons.home_outlined),
@@ -58,11 +66,11 @@ class CustomDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.person_outline_outlined),
-            title: const Text('My Profile'),
+            title: const Text('Upload Your Profile Data'),
 
             onTap: () {
               Navigator.pop(context);
-              Get.toNamed(RouteName.studentProfileScreen);
+              Get.toNamed(RouteName.addStudentpersonalScreen);
 
             },
           ),
@@ -71,12 +79,12 @@ class CustomDrawer extends StatelessWidget {
             title: const Text('Edit Profile'),
             onTap: () {
               Navigator.pop(context);
-              Get.toNamed(RouteName.studentEditProfileScreen);
+              Get.toNamed(RouteName.update_studentPersonalDetailsScreen);
             },
           ),
 
           ListTile(
-            leading: const Icon(Icons.edit_calendar_sharp),
+            leading: const Icon(Icons.list_alt_outlined),
             title: const Text('My Activity'),
             onTap: () {
               Navigator.pop(context);
@@ -84,7 +92,7 @@ class CustomDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.list_alt_outlined),
+            leading: const Icon(Icons.all_inbox),
             title: const Text('My Offer'),
             onTap: () {
               Navigator.pop(context);

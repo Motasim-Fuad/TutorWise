@@ -11,9 +11,11 @@ class RouteName{
   static const String studentScreen= "/student_screen";
   static const String referrerScreen= "/referrer_screen";
   static const String studentEditProfileScreen= "/student_editProfileScreen";
-  static const String studentPersonalDetailsScreen= "/student_personal_details_screen";
+  static const String update_studentPersonalDetailsScreen= "/update_StudentPersonalDetailsScreen";
+  static const String addStudentpersonalScreen= "/addStudentpersonalScreen";
   static const String stPostTuitionScreen= "/st_Post_Tuition_Screen";
   static const String studentProfileScreen= "/student_profileScreen";
   static const String stmyActivityScreen= "/st_myActivityScreen";
+  static const String stNotificationScreen= "/st_NotificationScreen";
 
 }

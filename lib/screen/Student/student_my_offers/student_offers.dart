@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tutorapp/screen/Student/student_my_offers/widget/offer_card.dart';
 
 import '../../../utils/Neumorphic/button.dart';
 
@@ -10,15 +11,15 @@ class StudentOffers extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          MyNeumorphicButton(
-            label: 'neumorphic',
-            onPressed: () {
-              print('Neumorphic button pressed!');
-            },
-          ),
-          Center(
-            child: Text("StudentOffers Page"),
-          ),
+          Text("My tution Offer"),
+          Expanded(child: ListView.builder(
+            itemCount: 12,
+              itemBuilder: (context,index){
+            return StOffersCard();
+          })
+          )
+
+
         ],
       ),
     );

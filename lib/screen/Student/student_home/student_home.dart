@@ -83,6 +83,7 @@ class TutorCard extends StatelessWidget {
     required this.studentLevel,
     required this.schedule,
     required this.fee,
+
   });
 
   @override
@@ -111,23 +112,12 @@ class TutorCard extends StatelessWidget {
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16)),
                       Text(university,
-                          style: const TextStyle(color: Colors.black54)),
+                          style: Theme.of(context).textTheme.bodySmall),
                       Text("Specialist in $subject",
                           style: const TextStyle(
                               color: Colors.deepOrangeAccent)),
                       const SizedBox(height: 6),
-                      // ElevatedButton(
-                      //   onPressed: () {},
-                      //   style: ElevatedButton.styleFrom(
-                      //     backgroundColor: Colors.deepOrange,
-                      //     padding: const EdgeInsets.symmetric(
-                      //         horizontal: 12, vertical: 4),
-                      //     shape: RoundedRectangleBorder(
-                      //         borderRadius: BorderRadius.circular(10)),
-                      //   ),
-                      //   child: const Text("Show Questions",
-                      //       style: TextStyle(fontSize: 12, color: Colors.white)),
-                      // )
+
                     ],
                   ),
                 )

@@ -44,7 +44,7 @@ dependencies:
   intl: ^0.18.1
   url_launcher: ^6.2.5
   flutter_neumorphic_plus: ^3.4.0
-
+  timeago: ^3.7.1
 
 dev_dependencies:
   flutter_test:

@@ -36,8 +36,9 @@ class _StudentProfileProgressWidgetState extends State<StudentProfileProgressWid
         margin: const EdgeInsets.all(16),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Colors.deepPurple,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.grey,width: 1,strokeAlign: 1)
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,13 +46,13 @@ class _StudentProfileProgressWidgetState extends State<StudentProfileProgressWid
             Text(
               'Profile ${controller.completion.value}% complete',
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 8),
             LinearProgressIndicator(
-              minHeight: 20.0,
+              minHeight: 10.0,
               value: controller.completion.value / 100.0,
               backgroundColor: Colors.white24,
               valueColor: AlwaysStoppedAnimation<Color>(

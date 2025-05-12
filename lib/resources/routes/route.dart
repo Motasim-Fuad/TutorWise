@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:tutorapp/screen/Authentacation/forget_password/otp_reset_pass.dart';
 import 'package:tutorapp/screen/Authentacation/forget_password/set_password.dart';
 import 'package:tutorapp/screen/Authentacation/singup/singup_form/otp_screen.dart';
+import 'package:tutorapp/screen/Student/notification_screen.dart';
+import 'package:tutorapp/screen/Student/student_profile/student_edit_profile_Screen/add_st_profile.dart';
 import 'package:tutorapp/screen/Student/student_profile/student_edit_profile_Screen/student_edit_profile_Screen.dart';
 import 'package:tutorapp/screen/Student/student_screen.dart';
 import 'package:tutorapp/screen/Tutor/tutor_Screen.dart';
@@ -11,7 +13,7 @@ import '../../screen/Authentacation/login/login_screen.dart';
 import '../../screen/Authentacation/singup/singupScreen.dart';
 import '../../screen/Student/St_PostTutionScreen.dart';
 import '../../screen/Student/st_my_activity/my_activity.dart';
-import '../../screen/Student/student_profile/student_edit_profile_Screen/student_personal_details_screen.dart';
+import '../../screen/Student/student_profile/student_edit_profile_Screen/update_student_personal_details_screen.dart';
 import '../../screen/Student/student_profile/student_profile.dart';
 import '../../screen/splash/splash_screen.dart';
 import 'route_name.dart';
@@ -93,8 +95,13 @@ class AppRoutes {
     ),
 
     GetPage(
-      name: RouteName.studentPersonalDetailsScreen,
-      page: ()=> StudentPersonalDetailsScreen(),
+      name: RouteName.update_studentPersonalDetailsScreen,
+      page: ()=> updateStudentPersonalDetailsScreen(),
+      transition: Transition.leftToRightWithFade,
+      transitionDuration: Duration(microseconds: 250),
+    ), GetPage(
+      name: RouteName.addStudentpersonalScreen,
+      page: ()=> addStudentpersonalScreen(),
       transition: Transition.leftToRightWithFade,
       transitionDuration: Duration(microseconds: 250),
     ),
@@ -114,6 +121,13 @@ class AppRoutes {
     GetPage(
       name: RouteName.stmyActivityScreen,
       page: ()=> StMyActivityScreen(),
+      transition: Transition.leftToRightWithFade,
+      transitionDuration: Duration(microseconds: 250),
+    ),
+
+    GetPage(
+      name: RouteName.stNotificationScreen,
+      page: ()=> StNotificationScreen(),
       transition: Transition.leftToRightWithFade,
       transitionDuration: Duration(microseconds: 250),
     ),

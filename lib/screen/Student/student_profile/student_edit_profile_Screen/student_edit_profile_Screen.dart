@@ -29,41 +29,44 @@ class _StudentEditProfileScreenState extends State<StudentEditProfileScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text("Student Profile Editing"),
-            StudentProfileProgressWidget(),
+            const Text("Student Profile Editing",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold)),
             const SizedBox(height: 20),
-            GestureDetector(
-              onTap: () {
-                Get.toNamed(RouteName.studentPersonalDetailsScreen);
-              },
-              child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                decoration: BoxDecoration(
-                  border: Border.all(width: 3,strokeAlign: 1,color: Colors.green),
-                  borderRadius: BorderRadius.circular(10),
-                    color: Colors.yellow
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.person),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Personal Details",
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                        Text(
-                          "Your personal Information",
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            )
+
+            const SizedBox(height: 20),
+            // GestureDetector(
+            //   onTap: () {
+            //     //Get.toNamed(RouteName.studentPersonalDetailsScreen);
+            //   },
+            //   child: Container(
+            //       padding: EdgeInsets.symmetric(vertical: 10),
+            //     margin: EdgeInsets.symmetric(horizontal: 20),
+            //     decoration: BoxDecoration(
+            //       border: Border.all(width: 1,strokeAlign: 1,color: Colors.red),
+            //       borderRadius: BorderRadius.circular(10),
+            //         color: Colors.redAccent
+            //     ),
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //       crossAxisAlignment: CrossAxisAlignment.center,
+            //       children: [
+            //         const Icon(Icons.person,color: Colors.white,),
+            //         Column(
+            //           crossAxisAlignment: CrossAxisAlignment.start,
+            //           children: [
+            //             Text(
+            //               "Personal Details",
+            //               style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white),
+            //             ),
+            //             Text(
+            //               "Your personal Information",
+            //               style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.white),
+            //             ),
+            //           ],
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),

@@ -46,7 +46,7 @@ class TutionPostScreen extends StatelessWidget {
                       CircleAvatar(
                         backgroundImage: NetworkImage("${AppUrl.baseurl}${post.profilePicture}"),
                       ),
-                      Text(_st_profilecontroller.profile.value.fullName.toString(),style: AppTextStyles.headline1,),
+                      Text(_st_profilecontroller.profile.value.fullName.toString(),style: Theme.of(context).textTheme.titleLarge,),
                     ],
                   ),
                   SizedBox(height: 10,),

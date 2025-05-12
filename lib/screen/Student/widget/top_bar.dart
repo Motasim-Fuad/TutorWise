@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:tutorapp/resources/routes/route_name.dart';
 import '../../../resources/assets/image_assets.dart';
+import '../../../screen_models/Controller/Student/StudentProfileScreenModel.dart';
 import '../../../screen_models/Controller/localization_controller.dart';
 
 
@@ -17,16 +18,25 @@ class TopBar extends StatelessWidget {
     LocalizationController(),
   );
 
-  @override
+  final _controller = Get.put(StudentProfileScreenModel());
+
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final backgroundColor = isDarkMode ? Colors.grey[900] : Colors.white;
+    final textColor = isDarkMode ? Colors.white : Colors.black;
+
     return Builder(
-      builder:
-          (context) => Container(
+      builder: (context) => Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          boxShadow: [
+            BoxShadow(
+              color: isDarkMode ? Colors.black26 : Colors.black12,
+              blurRadius: 4,
+            ),
+          ],
         ),
         child: SafeArea(
           child: Row(
@@ -40,9 +50,10 @@ class TopBar extends StatelessWidget {
                   const SizedBox(width: 10),
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
+                      color: textColor,
                     ),
                   ),
                 ],
@@ -51,15 +62,16 @@ class TopBar extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.notifications),
+                        onPressed: () {
+                          Get.toNamed(RouteName.stNotificationScreen);
+                        },
+                        icon: Icon(Icons.notifications, color: textColor),
                       ),
                       IconButton(
                         onPressed: () {
-
                           Get.toNamed(RouteName.stPostTuitionScreen);
                         },
-                        icon: const Icon(Icons.add_circle_outline_rounded),
+                        icon: Icon(Icons.add_circle_outline_rounded, color: textColor),
                       ),
                       Obx(
                             () => GestureDetector(
@@ -67,15 +79,15 @@ class TopBar extends StatelessWidget {
                           child: CircleAvatar(
                             backgroundImage: AssetImage(
                               _localizationController.language.value
-                                  ?  ImageAssets.flagus
-                                  : ImageAssets.flagbd
+                                  ? ImageAssets.flagus
+                                  : ImageAssets.flagbd,
                             ),
                             radius: 11,
                           ),
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.menu),
+                        icon: Icon(Icons.menu, color: textColor),
                         onPressed: () => Scaffold.of(context).openDrawer(),
                       ),
                     ],
@@ -87,3 +99,4 @@ class TopBar extends StatelessWidget {
     );
   }
 }
+

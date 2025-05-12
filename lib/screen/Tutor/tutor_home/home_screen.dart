@@ -12,7 +12,7 @@ class TutorHomeScreen extends StatelessWidget {
       appBar: AppBar(title: Text("Theme Switch")),
       body: Center(
         child: Obx(() => Switch(
-          value: themeController.isDarkMode.value,
+          value: themeController.isDarkMode,
           onChanged: (value) => themeController.toggleTheme(),
         )),
       ),
