@@ -149,17 +149,28 @@ class TutorCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                IconButton(onPressed: (){
+
+                }, icon: Icon(Icons.bookmark_border)),
                 OutlinedButton(
                   onPressed: () {},
-                  child: const Text("View Profile"),
+                  child: const Text("View Profile "),
                 ),
-                RoundButton(
-                  width: 170,
-                  title: 'Apply',
-                  onPress: () {
+                NeumorphicButton(
+                  onPressed: (){
 
                   },
+                  style: NeumorphicStyle(
+                    color: Colors.redAccent,
+
+                    shape: NeumorphicShape.concave,
+                    depth: -3,
+                    intensity: 0.6,
+                    surfaceIntensity: 0.1,
+                  ),
+                  child: Text("Apply"),
                 ),
+
               ],
             )
           ],

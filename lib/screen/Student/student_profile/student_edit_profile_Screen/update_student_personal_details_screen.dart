@@ -22,7 +22,7 @@ class updateStudentPersonalDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Student Personal Details")),
+      appBar: AppBar(title: Text("Edit Your Details")),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -155,7 +155,7 @@ class updateStudentPersonalDetailsScreen extends StatelessWidget {
 
             SizedBox(height: 20),
             RoundButton(
-              buttonColor: Colors.grey,
+              buttonColor: Colors.redAccent,
               width: double.infinity,
               onPress: () async {
                 final user = await UserPreferences().getUser();
@@ -188,7 +188,7 @@ class updateStudentPersonalDetailsScreen extends StatelessWidget {
                   arguments: true,
                 );
               },
-              title: "Data Update",
+              title: "Save",
             ),
           ],
         ),
