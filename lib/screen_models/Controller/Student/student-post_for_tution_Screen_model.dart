@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutorapp/repository/Student_DashBoard/st_post_for_tution_repository.dart';
 import 'package:intl/intl.dart';
 import '../../../models/Student/student_personal_details_profile_model.dart';
+import '../../../screen/Student/St_PostTutionScreen.dart';
+
 
 class StudentPostForTutionScreenModel extends GetxController{
   final _repo =St_postForTutionRepository();
@@ -58,6 +60,29 @@ class StudentPostForTutionScreenModel extends GetxController{
 
   var isLoading = false.obs;
 
+  void clearForm() {
+    phoneNumber.value = '';
+    address.value = '';
+    jobTitle.value = '';
+    startDate.value = '';
+    educationLevel.value = '';
+    curriculum.value = '';
+    subjects.value = '';
+    lessonType.value = '';
+    studentGender.value = '';
+    tutorGender.value = '';
+    budget.value = '';
+    daysPerWeek.value = '';
+    tutorCurriculum.value = '';
+    tutorInstitute.value = '';
+    referrerId.value = '';
+
+    selectedDivision.value = null;
+    selectedDistrict.value = null;
+    selectedUpazila.value = null;
+  }
+
+
 
   Future<void> fetchDivisions() async {
     try {
@@ -96,10 +121,8 @@ class StudentPostForTutionScreenModel extends GetxController{
         return;
       }
 
-
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? token = prefs.getString('token');
-
 
       print("token is :$token");
 
@@ -108,12 +131,9 @@ class StudentPostForTutionScreenModel extends GetxController{
         return;
       }
 
-
-
       Map<String, dynamic> data = {
-
         "phone_number": phoneNumber.value,
-        "division_id": selectedDivision.value?.id.toString(),
+        "division_id": selectedDivision.value?.id,
         "district_id": selectedDistrict.value?.id,
         "upazila_id": selectedUpazila.value?.id,
         "additional_comment": address.value,
@@ -129,29 +149,18 @@ class StudentPostForTutionScreenModel extends GetxController{
         "days_per_week": daysPerWeek.value,
         "tutor_curriculum": tutorCurriculum.value,
         "tutor_institution": tutorInstitute.value,
-        //"referrer_id": referrerId.value,
       };
 
+      final response = await _repo.postForTutionApi(data);
+      print("Tuition post response: $response");
+      print("Response body: ${response['data']}");
 
-
-      try{
-        final response = await _repo.postForTutionApi(data);
-        print("Tuition post response: $response");
-        print("Response body: ${response['data']}");
-
-        if (response['statusCode'] == 200 || response['statusCode'] == 201) {
-
-
-          Get.snackbar("Success", "Tuition posted!");
-        } else {
-          Get.snackbar("Error", "Failed to post tuition: ${response['data']}");
-        }
-
-      }catch(e){
-        print("post error is=$e");
+      if (response['statusCode'] == 200 ||response['statusCode'] == 201 ) {
+        Get.snackbar("Success", "Tuition posted!");
+        clearForm(); // Access and clear form
+      } else {
+        Get.snackbar("Error", "Failed to post tuition: ${response['data']}");
       }
-
-
 
     } catch (e) {
       Get.snackbar("Failed", "Something went wrong: $e");
@@ -159,6 +168,7 @@ class StudentPostForTutionScreenModel extends GetxController{
       isLoading.value = false;
     }
   }
+
 
 
 

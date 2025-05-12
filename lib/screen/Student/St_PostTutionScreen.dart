@@ -69,7 +69,7 @@ class StPostTuitionScreen extends StatelessWidget {
              RoundButton(
                  title: "post",
                  width: double.infinity,
-                 onPress: (){
+                 onPress: ()async{
                controller.phoneNumber.value = phoneController.text;
                controller.address.value = addressController.text;
                controller.jobTitle.value = jobTitleController.text;
@@ -77,12 +77,12 @@ class StPostTuitionScreen extends StatelessWidget {
                controller.tutorInstitute.value = tutorInstituteController.text;
                //controller.referrerId.value = referrerIdController.text;
                controller.subjects.value = subjectsController.text;
-               controller.passTituonPost();
+               await controller.passTituonPost();
 
 
 
-               //clear data
-               _clearForm();
+
+
              })
             ],
           ),

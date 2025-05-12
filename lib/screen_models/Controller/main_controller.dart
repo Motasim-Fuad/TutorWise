@@ -11,8 +11,8 @@ class MainController extends GetxController {
   String get title {
     switch (currentIndex.value) {
       case 0: return 'Home';
-      case 1: return 'Jobs';
-      case 2: return 'Activity';
+      case 1: return 'My Tutor';
+      case 2: return 'Offers';
       case 3: return 'Profile';
       default: return 'Tutor App';
     }

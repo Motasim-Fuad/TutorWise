@@ -65,7 +65,7 @@ class TopBar extends StatelessWidget {
                         onPressed: () {
                           Get.toNamed(RouteName.stNotificationScreen);
                         },
-                        icon: Icon(Icons.notifications, color: textColor),
+                        icon: Icon(Icons.notifications_outlined, color: textColor),
                       ),
                       IconButton(
                         onPressed: () {
